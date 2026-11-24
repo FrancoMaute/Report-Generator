@@ -1,0 +1,13 @@
+{
+    "project_name": "Web Application Pentest",
+    "target": "http://localhost",
+    "findings": [
+        {
+            "title": "SQL Injection",
+            "cvss": 9.8,
+            "description": "SQL injection in the login form.",
+            "impact": "Unauthorized database access.",
+            "remediation": "Use parameterized queries."
+        }
+    ]
+}
