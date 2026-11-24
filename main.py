@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from jinja2 import Environment, FileSystemLoader
 
 base_dir = Path(__file__).resolve().parent
 
@@ -89,5 +90,25 @@ def summary(content):
         summary_cvss[severity] += 1 
     return summary_cvss
 
+def generate_html(content):
+    env = Environment(
+        loader=FileSystemLoader(base_dir / "templates"),
+        autoescape=True
+    )
 
-summary(content)
+    template = env.get_template("report.html")
+
+    html = template.render(
+        project_name=content['project_name'],
+        target=content['target']
+    )
+    return html
+
+html = generate_html(content)
+
+def save_html(html):
+    with open(base_dir / "reports" / "report.html", "w") as file:
+        file.write(html)
+    
+
+save_html(html)
