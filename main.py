@@ -3,7 +3,6 @@ from pathlib import Path
 
 base_dir = Path(__file__).resolve().parent
 
-
 def load_findings():
     with open(base_dir / "data" / "findings.json", "r") as file : 
         content = json.load(file)
@@ -11,7 +10,6 @@ def load_findings():
     return content
 
 content = load_findings()
-
 
 
 def validate_required_top_fields(content):
@@ -31,8 +29,6 @@ def validate_required_top_fields(content):
             return False
 
     return True
-
-
 
 def validate_findings(content):
     required_fields = [
@@ -62,17 +58,36 @@ def validate_findings(content):
             print("[-] Error: Invalid CVSS")
             return False
         
-        
-
-
-        
-
     return True
-
-
-
 
 if validate_required_top_fields(content) and validate_findings(content):
     print("[+] Valid report data")
 else:
     print("[-] Invalid report data")
+
+def get_severity(cvss):
+    if not (isinstance(cvss, int) or isinstance(cvss, float)) or not 0 <= cvss <= 10:
+        print("[-]Error: cvss must be a number between 0 and 10")
+        return False
+    if cvss == 0: return "none"
+    if cvss < 4: return "low"
+    if cvss < 7: return "medium"
+    if cvss < 9: return "high"
+    else: return "critical"
+
+def summary(content):
+    summary_cvss = {
+    "critical": 0,
+    "high": 0,
+    "medium": 0,
+    "low": 0,
+    "none": 0
+}
+    for finding in content["findings"]:
+        cvss = finding['cvss']
+        severity = get_severity(cvss)
+        summary_cvss[severity] += 1 
+    return summary_cvss
+
+
+summary(content)
