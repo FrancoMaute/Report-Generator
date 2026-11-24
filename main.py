@@ -101,7 +101,7 @@ def generate_html(content):
     html = template.render(
         project_name=content['project_name'],
         target=content['target'],
-        findings=content['findings']
+        findings=content["findings"]
     )
     return html
 
@@ -111,5 +111,5 @@ def save_html(html):
     with open(base_dir / "reports" / "report.html", "w") as file:
         file.write(html)
     
-
+print(content["findings"])
 save_html(html)

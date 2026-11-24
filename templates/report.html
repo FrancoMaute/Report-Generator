@@ -5,7 +5,14 @@
     <title>Pentest Report</title>
 </head>
 <body>
-    <h1>{{ project_name }}</h1>
-    <p>Target: {{ target }}</p>
+    <h1>Web Application Pentest</h1>
+    <p>Target: http://localhost</p>
+
+    <h2>Vulnerabilities Findings</h2>
+
+    {%for finding in findings%}
+        <h3>{{finding.title}}</h3>
+        <p>CVSS: {{ finding.cvss }}</p>
+    {% endfor %}
 </body>
 </html>
