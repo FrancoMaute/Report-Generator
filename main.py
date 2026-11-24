@@ -100,7 +100,8 @@ def generate_html(content):
 
     html = template.render(
         project_name=content['project_name'],
-        target=content['target']
+        target=content['target'],
+        findings=content['findings']
     )
     return html
 
