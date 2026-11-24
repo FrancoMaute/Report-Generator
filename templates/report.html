@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Pentest Report</title>
+    <link rel="stylesheet" href="../templates/style.css">
 </head>
 <body>
     <h1>Web Application Pentest</h1>
@@ -10,9 +11,14 @@
 
     <h2>Vulnerabilities Findings</h2>
 
-    {%for finding in findings%}
-        <h3>{{finding.title}}</h3>
-        <p>CVSS: {{ finding.cvss }}</p>
-    {% endfor %}
+   {% for finding in findings %}
+    <article class="finding">
+        <h3>{{ finding.title }}</h3>
+        <p><strong>CVSS:</strong> {{ finding.cvss }}</p>
+        <p><strong>Description:</strong> {{ finding.description }}</p>
+        <p><strong>Impact:</strong> {{ finding.impact }}</p>
+        <p><strong>Remediation:</strong> {{ finding.remediation }}</p>
+    </article>
+{% endfor %}
 </body>
 </html>
